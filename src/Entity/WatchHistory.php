@@ -15,10 +15,17 @@ class WatchHistory
     private ?int $id = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $last_watched = null;
+    private ?\DateTimeInterface $lastWatched = null;
 
     #[ORM\Column]
-    private ?int $number_of_views = null;
+    private ?int $numberOfViews = null;
+
+    #[ORM\ManyToOne(inversedBy: 'watchHistory')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $subscriber = null;
+
+    #[ORM\ManyToOne]
+    private ?Media $media = null;
 
     public function getId(): ?int
     {
@@ -27,24 +34,48 @@ class WatchHistory
 
     public function getLastWatched(): ?\DateTimeInterface
     {
-        return $this->last_watched;
+        return $this->lastWatched;
     }
 
-    public function setLastWatched(\DateTimeInterface $last_watched): static
+    public function setLastWatched(\DateTimeInterface $lastWatched): static
     {
-        $this->last_watched = $last_watched;
+        $this->lastWatched = $lastWatched;
 
         return $this;
     }
 
     public function getNumberOfViews(): ?int
     {
-        return $this->number_of_views;
+        return $this->numberOfViews;
     }
 
-    public function setNumberOfViews(int $number_of_views): static
+    public function setNumberOfViews(int $numberOfViews): static
     {
-        $this->number_of_views = $number_of_views;
+        $this->numberOfViews = $numberOfViews;
+
+        return $this;
+    }
+
+    public function getSubscriber(): ?User
+    {
+        return $this->subscriber;
+    }
+
+    public function setSubscriber(?User $subscriber): static
+    {
+        $this->subscriber = $subscriber;
+
+        return $this;
+    }
+
+    public function getMedia(): ?Media
+    {
+        return $this->media;
+    }
+
+    public function setMedia(?Media $media): static
+    {
+        $this->media = $media;
 
         return $this;
     }

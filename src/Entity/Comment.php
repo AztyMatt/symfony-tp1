@@ -21,6 +21,16 @@ class Comment
     #[ORM\Column(enumType: CommentStatusEnum::class)]
     private ?CommentStatusEnum $status = null;
 
+    #[ORM\ManyToOne(inversedBy: 'comment')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $subscriber = null;
+
+    #[ORM\ManyToOne]
+    private ?Media $media = null;
+
+    #[ORM\ManyToOne(targetEntity: self::class)]
+    private ?self $comment = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -46,6 +56,42 @@ class Comment
     public function setStatus(CommentStatusEnum $status): static
     {
         $this->status = $status;
+
+        return $this;
+    }
+
+    public function getSubscriber(): ?User
+    {
+        return $this->subscriber;
+    }
+
+    public function setSubscriber(?User $subscriber): static
+    {
+        $this->subscriber = $subscriber;
+
+        return $this;
+    }
+
+    public function getMedia(): ?Media
+    {
+        return $this->media;
+    }
+
+    public function setMedia(?Media $media): static
+    {
+        $this->media = $media;
+
+        return $this;
+    }
+
+    public function getComment(): ?self
+    {
+        return $this->comment;
+    }
+
+    public function setComment(?self $comment): static
+    {
+        $this->comment = $comment;
 
         return $this;
     }

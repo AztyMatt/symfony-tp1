@@ -15,7 +15,13 @@ class PlaylistMedia
     private ?int $id = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $added_at = null;
+    private ?\DateTimeInterface $addedAt = null;
+
+    #[ORM\ManyToOne]
+    private ?Playlist $playlist = null;
+
+    #[ORM\ManyToOne]
+    private ?Media $media = null;
 
     public function getId(): ?int
     {
@@ -24,12 +30,36 @@ class PlaylistMedia
 
     public function getAddedAt(): ?\DateTimeInterface
     {
-        return $this->added_at;
+        return $this->addedAt;
     }
 
-    public function setAddedAt(\DateTimeInterface $added_at): static
+    public function setAddedAt(\DateTimeInterface $addedAt): static
     {
-        $this->added_at = $added_at;
+        $this->addedAt = $addedAt;
+
+        return $this;
+    }
+
+    public function getPlaylist(): ?Playlist
+    {
+        return $this->playlist;
+    }
+
+    public function setPlaylist(?Playlist $playlist): static
+    {
+        $this->playlist = $playlist;
+
+        return $this;
+    }
+
+    public function getMedia(): ?Media
+    {
+        return $this->media;
+    }
+
+    public function setMedia(?Media $media): static
+    {
+        $this->media = $media;
 
         return $this;
     }
