@@ -22,9 +22,9 @@ class MovieController extends AbstractController
         return $this->render(view: 'movie/detail.html.twig');
     }
 
-    #[Route(path: '/index')]
+    #[Route(path: '/')]
     public function index(): Response
     {
-        return $this->render('movie/index.html.twig');
+        return $this->render('index.html.twig');
     }
 }
