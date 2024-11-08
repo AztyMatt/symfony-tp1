@@ -69,20 +69,20 @@ class Language
         return $this->media;
     }
 
-    public function addMedium(Media $medium): static
+    public function addMedias(Media $medias): static
     {
-        if (!$this->media->contains($medium)) {
-            $this->media->add($medium);
-            $medium->addLanguage($this);
+        if (!$this->media->contains($medias)) {
+            $this->media->add($medias);
+            $medias->addLanguage($this);
         }
 
         return $this;
     }
 
-    public function removeMedium(Media $medium): static
+    public function removeMedias(Media $medias): static
     {
-        if ($this->media->removeElement($medium)) {
-            $medium->removeLanguage($this);
+        if ($this->media->removeElement($medias)) {
+            $medias->removeLanguage($this);
         }
 
         return $this;

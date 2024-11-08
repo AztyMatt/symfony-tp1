@@ -62,6 +62,12 @@ class User
     #[ORM\OneToMany(targetEntity: PlaylistSubscription::class, mappedBy: 'subscriber')]
     private Collection $playlistSubscription;
 
+    /**
+     * @var Collection<int, Playlist>
+     */
+    #[ORM\OneToMany(targetEntity: Playlist::class, mappedBy: 'subscriber')]
+    private Collection $playlists;
+
     public function __construct()
     {
         $this->subscriptionHistory = new ArrayCollection();
@@ -69,6 +75,7 @@ class User
         $this->watchHistory = new ArrayCollection();
         $this->comment = new ArrayCollection();
         $this->playlistSubscription = new ArrayCollection();
+        $this->playlists = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -284,5 +291,13 @@ class User
         }
 
         return $this;
+    }
+
+    /**
+     * @return Collection<int, Playlist>
+     */
+    public function getPlaylists(): Collection
+    {
+        return $this->playlists;
     }
 }

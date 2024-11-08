@@ -10,9 +10,6 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: SerieRepository::class)]
 class Serie extends Media
 {
-    #[ORM\Column]
-    private ?int $seasonCount = null;
-
     /**
      * @var Collection<int, Season>
      */
@@ -21,19 +18,8 @@ class Serie extends Media
 
     public function __construct()
     {
+        parent::__construct();
         $this->seasons = new ArrayCollection();
-    }
-    
-    public function getSeasonCount(): ?int
-    {
-        return $this->seasonCount;
-    }
-
-    public function setSeasonCount(int $seasonCount): static
-    {
-        $this->seasonCount = $seasonCount;
-
-        return $this;
     }
 
     /**
