@@ -3,9 +3,9 @@
 namespace App\Entity;
 
 use App\Repository\PlaylistRepository;
+use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: PlaylistRepository::class)]
@@ -19,11 +19,11 @@ class Playlist
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $createdAt = null;
+    #[ORM\Column]
+    private ?DateTimeImmutable $createdAt = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $updatedAt = null;
+    #[ORM\Column]
+    private ?DateTimeImmutable $updatedAt = null;
 
     /**
      * @var Collection<int, PlaylistSubscription>
@@ -33,12 +33,12 @@ class Playlist
 
     #[ORM\ManyToOne(inversedBy: 'playlists')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?User $subscriber = null;
+    private ?User $creator = null;
 
     /**
      * @var Collection<int, PlaylistMedia>
      */
-    #[ORM\OneToMany(targetEntity: PlaylistMedia::class, mappedBy: 'playlist2')]
+    #[ORM\OneToMany(targetEntity: PlaylistMedia::class, mappedBy: 'playlist')]
     private Collection $playlistMedia;
 
     public function __construct()
@@ -64,24 +64,24 @@ class Playlist
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeInterface
+    public function getCreatedAt(): ?DateTimeImmutable
     {
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeInterface $createdAt): static
+    public function setCreatedAt(DateTimeImmutable $createdAt): static
     {
         $this->createdAt = $createdAt;
 
         return $this;
     }
 
-    public function getUpdatedAt(): ?\DateTimeInterface
+    public function getUpdatedAt(): ?DateTimeImmutable
     {
         return $this->updatedAt;
     }
 
-    public function setUpdatedAt(\DateTimeInterface $updatedAt): static
+    public function setUpdatedAt(DateTimeImmutable $updatedAt): static
     {
         $this->updatedAt = $updatedAt;
 
@@ -118,14 +118,14 @@ class Playlist
         return $this;
     }
 
-    public function getSubscriber(): ?User
+    public function getCreator(): ?User
     {
-        return $this->subscriber;
+        return $this->creator;
     }
 
-    public function setSubscriber(?User $subscriber): static
+    public function setCreator(?User $creator): static
     {
-        $this->subscriber = $subscriber;
+        $this->creator = $creator;
 
         return $this;
     }
@@ -142,7 +142,7 @@ class Playlist
     {
         if (!$this->playlistMedia->contains($playlistMedias)) {
             $this->playlistMedia->add($playlistMedias);
-            $playlistMedias->setPlaylist2($this);
+            $playlistMedias->setPlaylist($this);
         }
 
         return $this;
@@ -152,8 +152,8 @@ class Playlist
     {
         if ($this->playlistMedia->removeElement($playlistMedias)) {
             // set the owning side to null (unless already changed)
-            if ($playlistMedias->getPlaylist2() === $this) {
-                $playlistMedias->setPlaylist2(null);
+            if ($playlistMedias->getPlaylist() === $this) {
+                $playlistMedias->setPlaylist(null);
             }
         }
 

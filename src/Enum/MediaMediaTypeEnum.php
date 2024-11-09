@@ -6,8 +6,6 @@ namespace App\Enum;
 
 enum MediaMediaTypeEnum: string
 {
-    case VALID = 'valid';
-    case PENDING = 'pending';
-    case REJECTED = 'rejected';
-    case DELETED = 'deleted';
+    case MOVIE = 'movie';
+    case SERIE = 'serie';
 }
