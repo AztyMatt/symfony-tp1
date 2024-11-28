@@ -39,7 +39,7 @@ class Category
 
     public function getName(): ?string
     {
-        return $this->nom;
+        return $this->name;
     }
 
     public function setName(string $name): static

@@ -10,22 +10,22 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class AdminController extends AbstractController
 {
-    #[Route(path: '/admin_add_films')]
+    #[Route(path: '/admin-add-films')]
     public function adminAddFilms(): Response
     {
-        return $this->render(view: 'admin/admin_add_films.html.twig');
+        return $this->render(view: 'admin/admin-add-films.html.twig');
     }
 
-    #[Route(path: '/admin_films')]
+    #[Route(path: '/admin-films')]
     public function adminFilms(): Response
     {
-        return $this->render(view: 'admin/admin_films.html.twig');
+        return $this->render(view: 'admin/admin-films.html.twig');
     }
 
-    #[Route(path: '/admin_users')]
+    #[Route(path: '/admin-users')]
     public function adminUsers(): Response
     {
-        return $this->render(view: 'admin/admin_users.html.twig');
+        return $this->render(view: 'admin/admin-users.html.twig');
     }
 
     #[Route(path: '/admin')]

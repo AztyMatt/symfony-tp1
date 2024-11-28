@@ -182,7 +182,7 @@ class AppFixtures extends Fixture
             $media->setShortDescription($this->faker->text(100));
             $media->setLongDescription($this->faker->text(500));
             $media->setReleaseDate($this->faker->dateTimeBetween('-5 years', 'now'));
-            $media->setCoverImage($this->faker->imageUrl(600, 900, $media->getTitle(), false));
+            $media->setCoverImage('https://picsum.photos/id/'.random_int(1, 100).'/400/600');
 
             $staff = [];
             shuffle($staffData);

@@ -7,12 +7,19 @@ namespace App\Controller\Movie;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use App\Repository\CategoryRepository;
 
 class ListController extends AbstractController
 {
-    #[Route(path: '/discover')]
-    public function discover(): Response
+    #[Route(path: '/discover', name: 'discover')]
+    public function discover(
+        CategoryRepository $categoryRepository,
+    ): Response
     {
-        return $this->render('movie/discover.html.twig');
+        $categories = $categoryRepository->findAll();
+
+        return $this->render(view: 'movie/discover.html.twig', parameters: [
+            'categories' => $categories
+        ]);
     }
 }

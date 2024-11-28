@@ -7,12 +7,23 @@ namespace App\Controller\Movie;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use App\Repository\CategoryRepository;
 
 class CategoryController extends AbstractController
 {
-    #[Route(path: '/category')]
-    public function login(): Response
+    #[Route(path: '/category/{name}', name: 'category')]
+    public function category(
+        string $name,
+        CategoryRepository $categoryRepository,
+
+        // Category $category
+    ): Response
     {
-        return $this->render(view: 'movie/category.html.twig');
+        $categories = $categoryRepository->findAll();
+
+        return $this->render(view: 'movie/category.html.twig', parameters: [
+            'name' => $name,
+            'categories' => $categories
+        ]);
     }
 }
