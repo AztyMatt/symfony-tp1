@@ -26,6 +26,7 @@ use DateTimeImmutable;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Faker\Factory as Faker;
 
 class AppFixtures extends Fixture
@@ -89,7 +90,8 @@ class AppFixtures extends Fixture
             $user = new User();
             $user->setUsername($this->faker->userName);
             $user->setEmail($this->faker->email);
-            $user->setPassword(password_hash($this->faker->password, PASSWORD_BCRYPT));
+            $user->setPlainPassword('password');
+            $user->setRoles(['ROLE_USER']);
             $user->setAccountStatus(UserAccountStatusEnum::ACTIVE);
             $user->setProfilePicture('https://i.pravatar.cc/150?u='.$user->getUsername());
 
@@ -182,7 +184,7 @@ class AppFixtures extends Fixture
             $media->setShortDescription($this->faker->text(100));
             $media->setLongDescription($this->faker->text(500));
             $media->setReleaseDate($this->faker->dateTimeBetween('-5 years', 'now'));
-            $media->setCoverImage('https://picsum.photos/id/'.random_int(1, 100).'/400/600');
+            $media->setCoverImage('https://picsum.photos/id/'.random_int(1, 100).'/800/1200');
 
             $staff = [];
             shuffle($staffData);

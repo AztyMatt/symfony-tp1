@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Password Reset</title>
+</head>
+<body style="height: 100vh;">
+    <main style="flex: 1; font-family: 'Arial', sans-serif;">
+        <section style="height: 100%; position: relative;">
+            <div style="background-color: #f0f0f0; padding: 20px;">
+                <div style="padding: 8px; max-width: 600px; margin: auto; background-color: white; border-radius: 8px;">
+                    <h1 style="font-size: 24px; font-weight: bold; text-align: center;">Password Reset Request</h1>
+                    <p style="font-size: 16px;">Hello {{ _email }},</p>
+                    <p style="font-size: 16px;">We received a request to reset your password. Click the link below to reset it:</p>
+                    <a href="{{ url('reset', {'token': resetToken}) }}" target="_blank" style="color: #007bff; text-decoration: none; font-size: 16px;">Reset Password</a>
+                    <p style="font-size: 16px;">If you did not request this, please ignore this email.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

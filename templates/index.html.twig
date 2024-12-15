@@ -1,20 +1,10 @@
-<!DOCTYPE html>
-<html lang="fr">
+{% extends 'base.html.twig' %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="style/style.css" rel="stylesheet">
-    <title>Mes films</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
+{% block title %}
+    Mes films
+{% endblock %}
 
-<body class="font-montserrat text-sm bg-white " >
-<div class="flex min-h-screen  2xl:max-w-screen-2xl 2xl:mx-auto 2xl:border-x-2 2xl:border-gray-200">
-
-    {% include 'parts/left-menu.html.twig' %}
-
+{% block body %}
     <main class=" flex-1 py-10  px-5 sm:px-10 ">
         {% include 'parts/header.html.twig' %}
         <section>
@@ -81,10 +71,5 @@
         </section>
     </main>
 
-    {% include 'parts/right-sidebar.html.twig' %}
-
-</div>
-
-</body>
-
-</html>
+    {% include 'parts/right_sidebar.html.twig' %}
+{% endblock %}

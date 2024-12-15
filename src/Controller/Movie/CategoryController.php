@@ -8,6 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use App\Repository\CategoryRepository;
+use App\Entity\Movie;
 
 class CategoryController extends AbstractController
 {
@@ -15,15 +16,24 @@ class CategoryController extends AbstractController
     public function category(
         string $name,
         CategoryRepository $categoryRepository,
-
-        // Category $category
     ): Response
     {
         $categories = $categoryRepository->findAll();
+        $category = $categoryRepository->findOneBy(['label' => $name]);
 
-        return $this->render(view: 'movie/category.html.twig', parameters: [
+        if (!$category) {
+            throw $this->createNotFoundException('Category not found');
+        }
+
+        $movies = $category->getMedia()->filter(function ($media) {
+            return $media instanceof Movie;
+        });
+
+        return $this->render('movie/category.html.twig', [
             'name' => $name,
-            'categories' => $categories
+            'categories' => $categories,
+            'category' => $category,
+            'movies' => $movies
         ]);
     }
 }
