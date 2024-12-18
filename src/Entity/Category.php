@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\CategoryRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CategoryRepository::class)]
@@ -26,6 +27,9 @@ class Category
      */
     #[ORM\ManyToMany(targetEntity: Media::class, mappedBy: 'categories')]
     private Collection $medias;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $icon = null;
 
     public function __construct()
     {
@@ -84,6 +88,18 @@ class Category
         if ($this->medias->removeElement($media)) {
             $media->removeCategory($this);
         }
+
+        return $this;
+    }
+
+    public function getIcon(): ?string
+    {
+        return $this->icon;
+    }
+
+    public function setIcon(string $icon): static
+    {
+        $this->icon = $icon;
 
         return $this;
     }
