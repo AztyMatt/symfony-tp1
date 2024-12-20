@@ -37,7 +37,7 @@ class AppFixtures extends Fixture
     public const MAX_SEASONS = 5;
     public const MAX_EPISODES = 10;
 
-    public const MAX_PLAYLISTS_PER_USER = 3;
+    public const MAX_PLAYLISTS_PER_USER = 5;
     public const MAX_MEDIA_PER_PLAYLIST = 3;
     public const MAX_LANGUAGE_PER_MEDIA = 3;
     public const MAX_CATEGORY_PER_MEDIA = 3;
@@ -238,7 +238,7 @@ class AppFixtures extends Fixture
     protected function createPlaylists(ObjectManager $manager, array $users, array &$playlists): void
     {
         foreach ($users as $user) {
-            for ($playlistNumber = 0; $playlistNumber < random_int(0, self::MAX_PLAYLISTS_PER_USER); $playlistNumber++) {
+            for ($playlistNumber = 0; $playlistNumber < random_int(2, self::MAX_PLAYLISTS_PER_USER); $playlistNumber++) {
                 $playlist = new Playlist();
                 $playlist->setName($this->faker->word . ' playlist');
                 $playlist->setCreatedAt(new DateTimeImmutable());

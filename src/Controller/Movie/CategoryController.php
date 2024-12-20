@@ -20,20 +20,13 @@ class CategoryController extends AbstractController
     {
         $categories = $categoryRepository->findAll();
         $category = $categoryRepository->findOneBy(['label' => $name]);
-
-        if (!$category) {
-            throw $this->createNotFoundException('Category not found');
-        }
-
-        $movies = $category->getMedia()->filter(function ($media) {
-            return $media instanceof Movie;
-        });
+        $medias = $category->getMedia();
 
         return $this->render('movie/category.html.twig', [
             'name' => $name,
             'categories' => $categories,
             'category' => $category,
-            'movies' => $movies
+            'medias' => $medias
         ]);
     }
 }

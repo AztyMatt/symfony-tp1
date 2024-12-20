@@ -22,6 +22,11 @@ class Serie extends Media
         $this->seasons = new ArrayCollection();
     }
 
+    public function getType(): string
+    {
+        return 'serie';
+    }
+
     /**
      * @return Collection<int, Season>
      */

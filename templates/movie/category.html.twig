@@ -7,7 +7,7 @@
         {% include 'parts/header.html.twig' %}
         <section>
             <div class="flex flex-row items-center space-x-6">
-                <span class="font-bold text-red-600 text-lg">Films <span class="font-medium text-black">dans la catégorie </span></span>
+                <span class="font-bold text-red-600 text-lg">Films / Séries <span class="font-medium text-black">dans la catégorie </span></span>
                 <nav class="flex space-x-3 text-gray-400 font-medium">
                     {% for category in categories %}
                         <a href="{{ path('category', {'name': category.label}) }}" 
@@ -22,7 +22,7 @@
                     <span class="text-red-600 font-bold mr-2">
                         <svg class="h-6 w-6" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>repeat-variant</title><path d="M6,5.75L10.25,10H7V16H13.5L15.5,18H7A2,2 0 0,1 5,16V10H1.75L6,5.75M18,18.25L13.75,14H17V8H10.5L8.5,6H17A2,2 0 0,1 19,8V14H22.25L18,18.25Z" /></svg>
                     </span>
-                    <span class="capitalize font-medium text-md">Trouver un <span class="text-red-600">film</span> aléatoirement dans la catégorie <span class="text-red-600">{{ category.name }}</span></span>
+                    <span class="font-medium text-md">Trouver un <span class="text-red-600">film / série</span> aléatoirement dans la catégorie <span class="text-red-600">{{ category.name }}</span></span>
                 </a>
             </div>
         </section>
@@ -41,8 +41,8 @@
             </div>
 
             <ul class="mt-4 grid grid-cols-2 gap-y-5 sm:grid-cols-3 gap-x-5 ">
-                {% for movie in movies %}
-                    {% include 'parts/media/movie_card.html.twig' %}
+                {% for media in medias %}
+                    {% include 'parts/media/media_card.html.twig' %}
                 {% endfor %}
             </ul>
         </section>
@@ -53,8 +53,8 @@
             </div>
 
             <ul class="mt-4 grid grid-cols-2 gap-y-5 sm:grid-cols-3 gap-x-5">
-                {% for movie in movies %}
-                    {% include 'parts/media/movie_card.html.twig' %}
+                {% for media in medias %}
+                    {% include 'parts/media/media_card.html.twig' %}
                 {% endfor %}
             </ul>
             <button class="flex flex-col items-center mt-9 w-full">

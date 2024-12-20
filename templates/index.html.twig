@@ -8,11 +8,6 @@
     <main class=" flex-1 py-10  px-5 sm:px-10 ">
         {% include 'parts/header.html.twig' %}
         <section>
-            <nav class="flex space-x-6 text-gray-400 font-medium">
-                <a href="#" class="hover:text-gray-700">Séries</a>
-                <a href="#" class="text-gray-700 font-semibold">Films</a>
-                <a href="#" class="hover:text-gray-700 ">Animés</a>
-            </nav>
 
             <div class="flex flex-col bg-top justify-between mt-4 bg-black/10 bg-blend-multiply rounded-3xl h-80 overflow-hidden bg-cover bg-center px-7 pt-4 pb-6 text-white"
                  style="background-image: url('https://resize.elle.fr/original/var/plain_site/storage/images/loisirs/cinema/news/inception-films-et-series-a-regarder-si-vous-aimez-le-film-avec-leonardo-dicaprio/97088011-1-fre-FR/Inception-5-films-et-series-a-regarder-si-vous-aimez-le-film-avec-Leonardo-DiCaprio.jpg');" >
@@ -64,8 +59,8 @@
             </div>
 
             <ul class="mt-4 grid grid-cols-2 gap-y-5 sm:grid-cols-3 gap-x-5 ">
-                {% for movie in movies %}
-                    {% include 'parts/media/movie_card.html.twig' %}
+                {% for media in medias %}
+                    {% include 'parts/media/media_card.html.twig' %}
                 {% endfor %}
             </ul>
         </section>

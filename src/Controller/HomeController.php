@@ -4,20 +4,19 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Attribute\Route;
-use App\Repository\MovieRepository;
+use Symfony\Component\Routing\Annotation\Route;
+use App\Repository\MediaRepository;
+use App\Entity\Movie;
 
 class HomeController extends AbstractController
 {
-   #[Route(path: '/', name: 'home')]
-    public function index(
-        MovieRepository $movieRepository
-    ): Response
+    #[Route(path: '/', name: 'home')]
+    public function index(MediaRepository $mediaRepository): Response
     {
-        $movies = $movieRepository->findAll();
-
+        $medias = $mediaRepository->findMostPopular();
+        
         return $this->render(view: 'index.html.twig', parameters: [
-            'movies' => $movies
+            'medias' => $medias
         ]);
     }
 }

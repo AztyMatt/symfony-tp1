@@ -14,6 +14,9 @@ use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Playlist;
 use App\Entity\User;
 use Doctrine\Persistence\ManagerRegistry;
+use App\Repository\MediaRepository;
+use App\Entity\Movie;
+use App\Entity\Serie;
 
 class ListController extends AbstractController
 {
@@ -22,7 +25,8 @@ class ListController extends AbstractController
     public function lists(
         PlaylistRepository $playlistRepository,
         Request $request,
-        ManagerRegistry $doctrine
+        ManagerRegistry $doctrine,
+        MediaRepository $mediaRepository
     ): Response
     {
         $user = $this->getUser();
@@ -36,24 +40,19 @@ class ListController extends AbstractController
         $playlist = $doctrine->getRepository(Playlist::class)
             ->findOneBy(['id' => $selectedPlaylistId, 'creator' => $user]);
 
-        $movies = $playlist ? $playlist->getPlaylistMedia() : [];
+        $playlistMedias = $playlist ? $playlist->getPlaylistMedia() : [];
+        $movies = $playlistMedias->filter(function ($media) {
+            return $media->getMedia() instanceof Movie;
+        });
+        $series = $playlistMedias->filter(function ($media) {
+            return $media->getMedia() instanceof Serie;
+        });
 
         return $this->render('movie/lists.html.twig', [
             'movies' => $movies,
+            'series' => $series,
             'selected_playlist_id' => $selectedPlaylistId,
-        ]);
-    }
-
-    // #[IsGranted('ROLE_USER')]
-    #[Route(path: '/discover', name: 'discover')] // A mettre dans un autre Controller et remplacer le path lists
-    public function discover(
-        CategoryRepository $categoryRepository,
-    ): Response
-    {
-        $categories = $categoryRepository->findAll();
-
-        return $this->render(view: 'movie/discover.html.twig', parameters: [
-            'categories' => $categories
+            // 'playlistMedias' => $playlistMedias,
         ]);
     }
 }
